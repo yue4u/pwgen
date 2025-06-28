@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pwgen.wasm</title>
+    <link rel="stylesheet" href="https://unpkg.com/charcoal.mini/dist/charcoal.mini.css" />
+    <style>
+        :root {
+            text-align: center;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        a {
+            color: #3D7699;
+        }
+
+        .ch-textfield-input {
+            height: 100%;
+            transform: scale(1);
+        }
+
+        #form {
+            padding: 32px 0;
+            display: flex;
+            justify-content: 1fr auto;
+            max-width: 288px;
+            margin: 0 auto;
+            gap: 8px;
+        }
+
+        pre {
+            margin: 0 auto;
+            width: min-content;
+            text-align: left;
+        }
+    </style>
+
+<body>
+    <h1>pwgen.wasm</h1>
+    <p>Upstream URL: <a href="https://sourceforge.net/projects/pwgen/">https://sourceforge.net/projects/pwgen/</a></p>
+    <p>Repo URL: <a href="https://github.com/yue4u/pwgen.wasm">https://github.com/yue4u/pwgen.wasm</a></p>
+
+    <form id="form">
+        <div class="ch-textfield">
+            <div class="ch-textfield-input-container" style="display: flex; align-items: center;">
+                <strong class="ch-textfield-prefix">pwgen</strong>
+                <input class="ch-textfield-input" id="cmd" type="text" value="-h" />
+            </div>
+        </div>
+
+        <button class="ch-button primary" id="run">run</button>
+    </form>
+    <pre id="result"></pre>
+    <pre id="error"></pre>
+</body>
+</head>
+
+<body>
+    <script type="module">
+        import initPwgen from './pwgen.js'
+        const initCmd = new URLSearchParams(location.search).get('cmd')
+        initCmd && (cmd.value = initCmd)
+        const callMain = form.onsubmit = async (e) => {
+            e?.preventDefault()
+            const pwgen = await initPwgen({
+                print(msg) { result.textContent += `\n${msg}` },
+                printErr(msg) { error.textContent += `\n${msg}` }
+            })
+            result.textContent = error.textContent = ''
+            await pwgen.callMain(cmd.value.trim().split(' ').filter(Boolean))
+        }
+        callMain()
+    </script>
+</body>
+
+</html>

@@ -16,6 +16,8 @@ WALL_OPTS = -Wall -Wnested-externs -Wstrict-prototypes -Wmissing-prototypes \
 	-Wshadow -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align \
 	-pedantic
 CC = @CC@
+# emcc 4.0.10-git (b7dc6e5747465580df5984e723b9d1f10d8e804b)
+EMCC = emcc
 DEFS = @DEFS@
 CFLAGS = @CFLAGS@ $(WALL_OPTS)
 CPPFLAGS = @CPPFLAGS@
@@ -49,6 +51,9 @@ SRCS=	$(srcdir)/pwgen.c \
 
 pwgen: $(OBJS)
 	$(CC) $(LDFLAGS) -o pwgen $(OBJS)
+
+pwgen.js: $(SRCS)
+	$(EMCC) $^ -O3 -s ALLOW_MEMORY_GROWTH=1 -s EXPORT_ES6=1 -s MODULARIZE=1 -s INVOKE_RUN=0 -s EXPORT_NAME="pwgen" -s "EXPORTED_RUNTIME_METHODS=['FS', 'callMain']" -o $@
 
 install: pwgen pwgen.1
 	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(mandir)/man1
