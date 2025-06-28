@@ -53,7 +53,7 @@ pwgen: $(OBJS)
 	$(CC) $(LDFLAGS) -o pwgen $(OBJS)
 
 pwgen.js: $(SRCS)
-	$(EMCC) $^ -O3 -s ALLOW_MEMORY_GROWTH=1 -s EXPORT_ES6=1 -s MODULARIZE=1 -s INVOKE_RUN=0 -s EXPORT_NAME="pwgen" -s "EXPORTED_RUNTIME_METHODS=['FS', 'callMain']" -o $@
+	$(EMCC) $^ -O3 -s ALLOW_MEMORY_GROWTH=1 -s EXPORT_ES6=1 -s MODULARIZE=1 -s INVOKE_RUN=0 -s EXPORT_NAME="pwgen" -s "EXPORTED_RUNTIME_METHODS=['FS', 'callMain']" --emit-tsd index.d.ts -o $@
 
 install: pwgen pwgen.1
 	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(mandir)/man1

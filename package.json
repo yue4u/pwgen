@@ -1,9 +1,10 @@
 {
   "name": "pwgen.wasm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "wasm build of pwgen",
   "type": "module",
   "main": "pwgen.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yue4u/pwgen.git"
@@ -11,6 +12,7 @@
   "files": [
     "pwgen.js",
     "pwgen.wasm",
+    "index.d.ts",
     "index.html"
   ]
 }
