@@ -7,7 +7,7 @@
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yue4u/pwgen.git"
+    "url": "git+https://github.com/yue4u/pwgen.wasm.git"
   },
   "files": [
     "pwgen.js",
